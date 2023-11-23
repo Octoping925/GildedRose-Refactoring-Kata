@@ -7,3 +7,16 @@ vendor
 *.iml
 **/*.received.*
 venv
+.idea/
+*.iml
+target/
+
+.classpath
+.project
+bin/
+.settings/
+
+# Gradle
+.gradle
+/build/
+
