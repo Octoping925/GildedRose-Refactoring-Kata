@@ -3,6 +3,8 @@ package com.gildedrose;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -59,11 +61,12 @@ class GildedRoseTest {
         assertThat(item.quality).isZero();
     }
 
-    @Test
+    @ParameterizedTest
     @DisplayName("quality는 0보다 작아지지 않는다")
-    void qualityMinTest() {
+    @CsvSource(value = {"1, 0", "0, 0", "-1, 0", "-1, 1"})
+    void qualityMinTest(int sellIn, int quality) {
         // given
-        Item item = new Item("foo", 1, 0);
+        Item item = new Item("foo", sellIn, quality);
 
         // when
         GildedRose app = new GildedRose(new Item[]{item});
@@ -109,6 +112,20 @@ class GildedRoseTest {
     @DisplayName("Sulfuras는")
     class SulfurasTest {
         private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
+        @Test
+        @DisplayName("시간이 지나도 sellIn이 변하지 않는다")
+        void sellInNotReduceTest() {
+            // given
+            Item sulfuras = new Item(SULFURAS, 1, 80);
+
+            // when
+            GildedRose app = new GildedRose(new Item[]{sulfuras});
+            app.updateQuality();
+
+            // then
+            assertThat(sulfuras.sellIn).isEqualTo(1);
+        }
 
         @Test
         @DisplayName("시간이 지나도 quality가 변하지 않는다")
