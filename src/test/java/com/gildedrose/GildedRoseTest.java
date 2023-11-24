@@ -91,4 +91,22 @@ class GildedRoseTest {
         }
     }
 
+    @Nested
+    @DisplayName("Sulfuras는")
+    class SulfurasTest {
+        private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+        @Test
+        @DisplayName("시간이 지나도 quality가 변하지 않는다")
+        void qualityNotReduceTest() {
+            // given
+            Item sulfuras = new Item(SULFURAS, 1, 80);
+
+            // when
+            GildedRose app = new GildedRose(new Item[]{sulfuras});
+            app.updateQuality();
+
+            // then
+            assertThat(sulfuras.quality).isEqualTo(80);
+        }
+    }
 }
