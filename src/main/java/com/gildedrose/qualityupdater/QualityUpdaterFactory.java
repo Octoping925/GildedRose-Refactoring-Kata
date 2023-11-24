@@ -9,6 +9,7 @@ public class QualityUpdaterFactory {
             ItemNames.AGED_BRIE, new AgedBrieQualityUpdater(),
             ItemNames.BACKSTAGE_PASSES, new BackstagePassesQualityUpdater(),
             ItemNames.SULFURAS, new SulfurasQualityUpdater(),
+            ItemNames.CONJURED, new ConjuredQualityUpdater(),
             ItemNames.NORMAL_ITEM, new NormalItemQualityUpdater()
     );
 
