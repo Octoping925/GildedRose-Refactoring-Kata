@@ -58,4 +58,37 @@ class GildedRoseTest {
         // then
         assertThat(item.quality).isZero();
     }
+
+    @Nested
+    @DisplayName("Aged Brie는")
+    class AgedBrieTest {
+        @Test
+        @DisplayName("시간이 지날 수록 quality가 증가한다")
+        void agedBrieQualityIncreaseTest() {
+            // given
+            Item item = new Item("Aged Brie", 1, 1);
+
+            // when
+            GildedRose app = new GildedRose(new Item[]{item});
+            app.updateQuality();
+
+            // then
+            assertThat(item.quality).isEqualTo(2);
+        }
+
+        @Test
+        @DisplayName("퀄리티를 50을 넘기면서 증가하지는 않는다")
+        void agedBrieQualityMaxTest() {
+            // given
+            Item item = new Item("Aged Brie", 1, 50);
+
+            // when
+            GildedRose app = new GildedRose(new Item[]{item});
+            app.updateQuality();
+
+            // then
+            assertThat(item.quality).isEqualTo(50);
+        }
+    }
+
 }
