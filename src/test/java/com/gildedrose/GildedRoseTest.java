@@ -9,16 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.*;
 
 class GildedRoseTest {
-
-    @Test
-    void foo() {
-        Item[] items = new Item[]{new Item("foo", 0, 0)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-
-        assertThat(app.items[0].name).isEqualTo("fixme");
-    }
-
     @Test
     @DisplayName("아이템은 하루가 지날 때 sellIn이 감소한다")
     void sellInReduceTest() {
@@ -205,6 +195,21 @@ class GildedRoseTest {
             // then
             assertThat(backStagePasses.sellIn).isEqualTo(-1);
             assertThat(backStagePasses.quality).isZero();
+        }
+
+        @ParameterizedTest
+        @CsvSource(value = {"1, 50", "11, 49", "10, 48", "5, 47", "3, 47"})
+        @DisplayName("퀄리티를 50을 넘기면서 증가하지는 않는다")
+        void agedBrieQualityMaxTest(int sellIn, int quality) {
+            // given
+            Item backStagePasses = new Item(BACKSTAGE_PASSES, sellIn, quality);
+
+            // when
+            GildedRose app = new GildedRose(new Item[]{backStagePasses});
+            app.updateQuality();
+
+            // then
+            assertThat(backStagePasses.quality).isEqualTo(50);
         }
     }
 

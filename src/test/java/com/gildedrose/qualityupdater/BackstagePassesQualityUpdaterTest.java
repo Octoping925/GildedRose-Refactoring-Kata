@@ -3,9 +3,10 @@ package com.gildedrose.qualityupdater;
 import com.gildedrose.Item;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("BackstagePassesQualityUpdater 클래스")
 class BackstagePassesQualityUpdaterTest {
@@ -66,6 +67,20 @@ class BackstagePassesQualityUpdaterTest {
         // then
         assertThat(backStagePasses.sellIn).isEqualTo(-1);
         assertThat(backStagePasses.quality).isZero();
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1, 50", "11, 49", "10, 48", "5, 47", "3, 47"})
+    @DisplayName("퀄리티를 50을 넘기면서 증가하지는 않는다")
+    void agedBrieQualityMaxTest(int sellIn, int quality) {
+        // given
+        Item backStagePasses = new Item(BACKSTAGE_PASSES, sellIn, quality);
+
+        // when
+        updater.updateQuality(backStagePasses);
+
+        // then
+        assertThat(backStagePasses.quality).isEqualTo(50);
     }
 
 }

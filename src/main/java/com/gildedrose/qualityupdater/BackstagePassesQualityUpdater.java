@@ -3,6 +3,8 @@ package com.gildedrose.qualityupdater;
 import com.gildedrose.Item;
 
 public class BackstagePassesQualityUpdater implements QualityUpdater {
+    private static final int MAX_QUALITY = 50;
+
     @Override
     public void updateQuality(Item item) {
         reduceSellIn(item);
@@ -19,15 +21,15 @@ public class BackstagePassesQualityUpdater implements QualityUpdater {
 
     private int calculateIncreaseAmount(Item item) {
         if(item.sellIn >= 10) {
-            return 1;
+            return Math.min(MAX_QUALITY - item.quality, 1);
         }
 
         if(item.sellIn > 5) {
-            return 2;
+            return Math.min(MAX_QUALITY - item.quality, 2);
         }
 
         if(item.sellIn >= 0) {
-            return 3;
+            return Math.min(MAX_QUALITY - item.quality, 3);
         }
 
         return -item.quality;
