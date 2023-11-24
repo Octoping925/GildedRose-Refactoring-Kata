@@ -59,6 +59,20 @@ class GildedRoseTest {
         assertThat(item.quality).isZero();
     }
 
+    @Test
+    @DisplayName("quality는 0보다 작아지지 않는다")
+    void qualityMinTest() {
+        // given
+        Item item = new Item("foo", 1, 0);
+
+        // when
+        GildedRose app = new GildedRose(new Item[]{item});
+        app.updateQuality();
+
+        // then
+        assertThat(item.quality).isZero();
+    }
+
     @Nested
     @DisplayName("Aged Brie는")
     class AgedBrieTest {
