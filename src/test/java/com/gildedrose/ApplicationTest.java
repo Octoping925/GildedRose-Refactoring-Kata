@@ -10,7 +10,7 @@ class ApplicationTest {
     @Test
     void test() {
         // given
-        Item[] items = new Item[]{
+        Item[] items = {
             new Item("+5 Dexterity Vest", 10, 20),
             new Item("Aged Brie", 2, 0),
             new Item("Elixir of the Mongoose", 5, 7),
@@ -19,7 +19,8 @@ class ApplicationTest {
             new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
             new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
             new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-            new Item("Conjured Mana Cake", 1, 6)};
+            new Item("Conjured Mana Cake", 1, 6),
+        };
 
         GildedRose app = new GildedRose(items);
 
